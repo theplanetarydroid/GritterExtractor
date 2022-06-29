@@ -1,0 +1,22 @@
+{
+  "name": "gritter-extractor",
+  "version": "0.1.0",
+  "description": "GritterExtractor a twitter scraper",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon src/index.ts"
+  },
+  "keywords": ["twitter", "twitter api", "twitter extractor"],
+  "author": "theplanetarydroid",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.11",
+    "form-data": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
+  }
+}
