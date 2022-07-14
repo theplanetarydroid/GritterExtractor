@@ -1,4 +1,5 @@
 import { IProfile } from './interfaces/IProfile';
+import { ITweet } from './interfaces/ITweet';
 import { ProfileService } from './services/profile.service';
 
 export class Profile {
@@ -12,7 +13,11 @@ export class Profile {
     await this._profileService.init();
   }
 
-  async getProfile(): Promise<IProfile> {
-    return await this._profileService.getProfile();
+  getProfile(): IProfile {
+    return this._profileService.getProfile();
+  }
+
+  getTweets(): ITweet[] {
+    return this._profileService.getTweets()
   }
 }
