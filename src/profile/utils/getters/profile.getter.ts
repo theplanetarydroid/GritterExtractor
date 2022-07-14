@@ -1,5 +1,5 @@
 import { CheerioAPI } from 'cheerio';
-import { getContent } from '../../../utils';
+import { getContent, getInstance } from '../../../utils';
 import { IProfile } from '../../interfaces/IProfile';
 
 export class ProfileGetter {
@@ -8,7 +8,7 @@ export class ProfileGetter {
   constructor(private username: string) {}
 
   async init(): Promise<void> {
-    this.$ = await getContent(`https://nitter.net/${this.username}`);
+    this.$ = await getContent(this.username);
   }
 
   profile(): IProfile {
@@ -61,11 +61,11 @@ export class ProfileGetter {
   }
 
   get profilePhoto(): string {
-    return `https://nitter.net${this.$('.profile-card-avatar').attr('href')!}`;
+    return `${getInstance()}${this.$('.profile-card-avatar').attr('href')!}`;
   }
 
   get bannerPhoto(): string {
-    return `https://nitter.net${this.$(
+    return `${getInstance()}${this.$(
       '.profile-banner > a:nth-child(1) > img:nth-child(1)'
     ).attr('src')}`;
   }

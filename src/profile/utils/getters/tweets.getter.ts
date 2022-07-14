@@ -1,5 +1,6 @@
 import { Cheerio, CheerioAPI, Element } from 'cheerio';
 import { getContent } from '../../../utils';
+import { getInstance } from '../../../utils/useInstance';
 import { ITweet } from '../../interfaces/ITweet';
 
 export class TweetsGetter {
@@ -10,9 +11,10 @@ export class TweetsGetter {
 
   async init(): Promise<void> {
     try {
-      this.$ = await getContent(`https://nitter.net/${this.username}`);
+      this.$ = await getContent(this.username);
     } catch (err: any) {
-      throw new Error(err);
+      console.log(err);
+      // throw new Error(err);
     }
   }
 
@@ -21,9 +23,8 @@ export class TweetsGetter {
       .attr('href')
       ?.split('=')
       .at(-1);
-    this.$ = await getContent(
-      `https://nitter.net/${this.username}?cursor=${tokenNext}`
-    );
+    this.username = `${this.username}?cursor=${tokenNext}`;
+    await this.init();
     return this.tweets().slice(1);
   }
 
@@ -65,7 +66,7 @@ export class TweetsGetter {
           .get()
           .map((el) => {
             const img = this.$(el);
-            return img.attr('href');
+            return `${getInstance()}${img.attr('href')}`;
           }),
       },
     };
@@ -100,7 +101,9 @@ export class TweetsGetter {
     return {
       username: this.tweet.find('.username').text(),
       name: this.tweet.find('.fullname').text(),
-      profilePhoto: this.tweet.find('.avatar').attr('src') as string,
+      profilePhoto: `${getInstance()}${this.tweet
+        .find('.avatar')
+        .attr('src')}` as string,
     };
   }
 }
