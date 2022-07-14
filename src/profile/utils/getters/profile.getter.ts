@@ -1,20 +1,31 @@
 import { CheerioAPI } from 'cheerio';
-import { getContent, getUserId } from '../../../utils';
+import { getContent } from '../../../utils';
+import { IProfile } from '../../interfaces/IProfile';
 
 export class ProfileGetter {
   private $!: CheerioAPI;
-  public userId!: number;
 
   constructor(private username: string) {}
 
   async init(): Promise<void> {
-    const [$, userId] = await Promise.all([
-      getContent(`https://nitter.net/${this.username}`),
-      getUserId(this.username),
-    ]);
+    this.$ = await getContent(`https://nitter.net/${this.username}`);
+  }
 
-    this.$ = $;
-    this.userId = userId;
+  profile(): IProfile {
+    return {
+      name: this.name,
+      username: this.userName,
+      followingCount: this.followingCount,
+      followersCount: this.followersCount,
+      likesCount: this.likesCount,
+      tweetsCount: this.tweetsCount,
+      profilePhoto: this.profilePhoto,
+      bannerPhoto: this.bannerPhoto,
+      location: this.location,
+      biography: this.biography,
+      website: this.website,
+      isVerified: this.isVerified,
+    };
   }
 
   get name(): string {

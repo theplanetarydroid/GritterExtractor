@@ -1,7 +1,6 @@
 export interface IProfile {
   name: string;
   username: string;
-  userId: number;
   followingCount: number;
   followersCount: number;
   likesCount: number;
