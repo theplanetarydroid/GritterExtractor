@@ -23,7 +23,8 @@ export class TweetsGetter {
       .attr('href')
       ?.split('=')
       .at(-1);
-    this.username = `${this.username}?cursor=${tokenNext}`;
+    const username = this.username.split('?').at(-0)
+    this.username = `${username}?cursor=${tokenNext}`;
     await this.init();
     return this.tweets().slice(1);
   }
