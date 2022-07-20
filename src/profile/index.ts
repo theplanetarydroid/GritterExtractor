@@ -18,6 +18,10 @@ export class Profile {
   }
 
   getTweets(): ITweet[] {
-    return this._profileService.getTweets()
+    return this._profileService.getTweets();
+  }
+
+  async getNextPage(): Promise<ITweet[]> {
+    return await this._profileService.getNextPage();
   }
 }

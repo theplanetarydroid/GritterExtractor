@@ -20,10 +20,14 @@ export class ProfileService {
   }
 
   getProfile(): IProfile {
-      return this._profileGetter.profile()
+    return this._profileGetter.profile();
   }
 
   getTweets(): ITweet[] {
-    return this._tweetsGetter.tweets()
+    return this._tweetsGetter.tweets();
+  }
+
+  async getNextPage(): Promise<ITweet[]> {
+    return await this._tweetsGetter.nextPage();
   }
 }

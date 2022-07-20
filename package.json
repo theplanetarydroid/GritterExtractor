@@ -6,13 +6,16 @@
   "scripts": {
     "start:dev": "nodemon src/index.ts"
   },
-  "keywords": ["twitter", "twitter api", "twitter extractor"],
+  "keywords": [
+    "twitter",
+    "twitter api",
+    "twitter extractor"
+  ],
   "author": "theplanetarydroid",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
-    "cheerio": "^1.0.0-rc.11",
-    "form-data": "^4.0.0"
+    "cheerio": "^1.0.0-rc.11"
   },
   "devDependencies": {
     "nodemon": "^2.0.18",
