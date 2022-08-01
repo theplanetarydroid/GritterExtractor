@@ -23,7 +23,7 @@ export class TweetsGetter {
       .attr('href')
       ?.split('=')
       .at(-1);
-    const username = this.username.split('?').at(-0)
+    const username = this.username.split('?').at(-0);
     this.username = `${username}?cursor=${tokenNext}`;
     await this.init();
     return this.tweets().slice(1);
@@ -46,6 +46,7 @@ export class TweetsGetter {
           attachements: {
             images: this.content.attachements.images,
           },
+          stats: this.stats,
           date: this.date,
           owner: this.owner,
         };
@@ -85,6 +86,53 @@ export class TweetsGetter {
       hasImages: this.tweet.find('.gallery-row').html() ? true : false,
       hasVideos: this.tweet.find('.gallery-video').html() ? true : false,
     };
+  }
+
+  private get stats(): {
+    comments: number;
+    retweets: number;
+    quotes: number;
+    likes: number;
+  } {
+    let ObjectStats!: {
+      comments: number;
+      retweets: number;
+      quotes: number;
+      likes: number;
+    };
+
+    this.tweet.find('.tweet-stat').each((i, el) => {
+      const numberOfCurrentStat = Number(this.$(el).text().split(',').join(''));
+
+      switch (i) {
+        case 0:
+          ObjectStats = {
+            ...ObjectStats,
+            comments: numberOfCurrentStat,
+          };
+          break;
+        case 1:
+          ObjectStats = {
+            ...ObjectStats,
+            retweets: numberOfCurrentStat,
+          };
+          break;
+        case 2:
+          ObjectStats = {
+            ...ObjectStats,
+            quotes: numberOfCurrentStat,
+          };
+          break;
+        case 3:
+          ObjectStats = {
+            ...ObjectStats,
+            likes: numberOfCurrentStat,
+          };
+          break;
+      }
+    });
+
+    return ObjectStats;
   }
 
   private get date(): { fullDate: string; roundDate: string } {

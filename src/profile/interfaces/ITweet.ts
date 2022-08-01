@@ -7,6 +7,12 @@ export interface ITweet {
   attachements: {
     images: (string | undefined)[];
   };
+  stats: {
+    comments: number;
+    retweets: number;
+    quotes: number;
+    likes: number;
+  },
   date: {
     fullDate: string;
     roundDate: string;
